@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require_relative 'board'
+require_relative 'game'
+
+board = Board.new(width: ARGV[0].to_i, height: ARGV[1].to_i, mines: ARGV[2].to_i)
+Game.new(board).start_game
