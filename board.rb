@@ -13,7 +13,7 @@ class Board
   end
 
   def cell_at(x, y)
-    cells[x * width + y]
+    cells[y * width + x]
   end
 
   def discover_area(x, y)
@@ -33,17 +33,25 @@ class Board
 
   def neighbours_for(x, y)
     neighbours = []
+    valid_x = [x]
+    valid_y = [y]
     if x > 0
-      neighbours << [x - 1, y]
+      valid_x << x - 1
     end
     if x < height - 1
-      neighbours << [x + 1, y]
+      valid_x << x + 1
     end
     if y > 0
-      neighbours << [x, y - 1]
+      valid_y << y - 1
     end
     if y < width - 1
-      neighbours << [x, y + 1]
+      valid_y << y + 1
+    end
+    valid_x.each do |new_x|
+      valid_y.each do |new_y|
+        next if new_x == x && new_y == y # Skip current cell
+        neighbours << [new_x, new_y]
+      end
     end
     neighbours
   end

@@ -17,6 +17,7 @@ class Game
         if cell.neighbouring_mines.nil?
           if (cell.neighbouring_mines = board.neighbouring_mines_count(x, y)) == 0
             board.discover_area(x, y)
+          else
           end
         end
       end
