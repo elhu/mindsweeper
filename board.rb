@@ -32,28 +32,17 @@ class Board
   end
 
   def neighbours_for(x, y)
-    neighbours = []
-    valid_x = [x]
-    valid_y = [y]
-    if x > 0
-      valid_x << x - 1
-    end
-    if x < height - 1
-      valid_x << x + 1
-    end
-    if y > 0
-      valid_y << y - 1
-    end
-    if y < width - 1
-      valid_y << y + 1
-    end
-    valid_x.each do |new_x|
-      valid_y.each do |new_y|
-        next if new_x == x && new_y == y # Skip current cell
-        neighbours << [new_x, new_y]
+    valid_x = [x - 1, x, x + 1].freeze
+    valid_y = [y - 1, y, y + 1].freeze
+    valid_x.inject([]) do |origin, curr_x|
+      if curr_x > 0 && curr_x < width
+        valid_y.each do |curr_y|
+          next if curr_y < 0 || curr_y >= height || (curr_x == x && curr_y == y)
+          origin << [curr_x, curr_y]
+        end
       end
+      origin
     end
-    neighbours
   end
 
   def to_s
